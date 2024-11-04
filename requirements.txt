@@ -1,4 +1,4 @@
-torch=2.1.2
+torch>=2.3
 optimum>=1.19.0
 auto-gptq>=0.7.1
 anytree>=2.12.0

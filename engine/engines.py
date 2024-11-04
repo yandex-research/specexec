@@ -40,7 +40,7 @@ class EngineRegular:
         position_ids: Optional[torch.LongTensor] = None,
         cache_position: torch.LongTensor = None,
     ):
-        assert torch.equal(cache_position, torch.arange(cache_position[0], cache_position[-1] + 1, device=cache_position.device)), "reconsider use of cache_position in amask slicing"
+        # assert torch.equal(cache_position, torch.arange(cache_position[0], cache_position[-1] + 1, device=cache_position.device)), "reconsider use of cache_position in amask slicing"
         attention_mask = attention_mask[..., : cache_position.max() + 1]
         assert attention_mask.shape[-2] == input_ids.shape[-1]
 

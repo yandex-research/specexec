@@ -1,5 +1,5 @@
 # SpecExec
-This repository contains the supplementary code for the paper "SpecExec: Massively Parallel Speculative Decoding For Interactive LLM Inference on Consumer Devices".
+This repository contains the supplementary code for the paper "SpecExec: Massively Parallel Speculative Decoding For Interactive LLM Inference on Consumer Devices" ([arXiv](https://arxiv.org/abs/2406.02532)).
 
 ## Launching experiements
 
@@ -13,23 +13,33 @@ By default, it uses:
 
 
 SpecExec on OpenAssistant data (`--gen_type SpecExecBase`):
-`python run_exp.py --top_p 0.9 --temperature 0.6 --gen_type SpecExecBase --max_budget="16, 32, 64, 128, 256, 512, 1024" --n_tests=10 --exp_name="SX_sample"`
+```
+python run_exp.py --top_p 0.9 --temperature 0.6 --gen_type SpecExecBase --max_budget="16, 32, 64, 128, 256, 512, 1024" --n_tests=10 --exp_name="SX_sample"
+```
 
 SpecInfer on OpenAssistant data (`--gen_type SI`):
-`python run_exp.py --temperature 0.6 --top_p 0.9 --gen_type SI --max_beam_len="8, 16, 32" --max_n_beams="8, 16, 32" --exp_name="SI_sample"`
+```
+python run_exp.py --temperature 0.6 --top_p 0.9 --gen_type SI --max_beam_len="8, 16, 32" --max_n_beams="8, 16, 32" --exp_name="SI_sample"
+```
 
 For offloaded inference, add `--offload`:
-`python run_exp.py --top_p 0.9 --temperature 0.6 --gen_type SpecExecBase --max_budget="16, 32, 64, 128, 256, 512, 1024" --n_tests=10 --offload --exp_name="SX_sample_offload"`
+```
+python run_exp.py --top_p 0.9 --temperature 0.6 --gen_type SpecExecBase --max_budget="16, 32, 64, 128, 256, 512, 1024" --n_tests=10 --offload --exp_name="SX_sample_offload"
+```
 
 Ablation test with different models:
-`python run_exp.py --top_p 0.9 --temperature 0.6 --gen_type SpecExecBase --model_0 "TheBloke/Mistral-7B-Instruct-v0.2-GPTQ" --model_1 "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ" --max_n_beams=128 --max_budget="16,32,64,128,256,512,1024,2048,4096"  --n_tests=10 --exp_name="SX2_mixtral"`
+```
+python run_exp.py --top_p 0.9 --temperature 0.6 --gen_type SpecExecBase --model_0 "TheBloke/Mistral-7B-Instruct-v0.2-GPTQ" --model_1 "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ" --max_n_beams=128 --max_budget="16,32,64,128,256,512,1024,2048,4096"  --n_tests=10 --exp_name="SX2_mixtral"
+```
 
 Benchnark run without speculative decodng, use `--zero`:
-`python run_exp.py --top_p 0.9 --temperature 0.6 --zero --n_tests=10`
-`python run_exp.py --top_p 0.9 --temperature 0.6 --offload --zero --n_tests=10`
-`python run_exp.py --model_0 "TheBloke/Mistral-7B-Instruct-v0.2-GPTQ" --model_1 "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ" --offload --zero --n_tests=10`
+
+- `python run_exp.py --top_p 0.9 --temperature 0.6 --zero --n_tests=10`
+- `python run_exp.py --top_p 0.9 --temperature 0.6 --offload --zero --n_tests=10`
+- `python run_exp.py --model_0 "TheBloke/Mistral-7B-Instruct-v0.2-GPTQ" --model_1 "TheBloke/Mixtral-8x7B-Instruct-v0.1-GPTQ" --offload --zero --n_tests=10`
 
 During the run, the script will log individual test results to stdout and to the logfile located in ./logs/[exp_name]. In the end, the summary result is displayed as a table:
+
 ```
 -------------------------------------------------------------------------------------------------------------------------
        S U M M A R Y   R E S U L T S   
@@ -42,3 +52,15 @@ During the run, the script will log individual test results to stdout and to the
 ```
 
 Here, `gen_rate` represents the average number of tokens accepted per draft tree and `gen_speed` is the average number of tokens generated per second.
+
+## citation reference
+```
+@misc{svirschevski2024specexec,
+      title={SpecExec: Massively Parallel Speculative Decoding for Interactive LLM Inference on Consumer Devices}, 
+      author={Ruslan Svirschevski and Avner May and Zhuoming Chen and Beidi Chen and Zhihao Jia and Max Ryabinin},
+      year={2024},
+      eprint={2406.02532},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL}
+}
+```
