@@ -35,6 +35,7 @@ def load_offloaded_model(model_name, device_size=3, main_device=torch.device("cu
         "model.layers": "meta",
         "model.norm": "cuda:0",
         "lm_head": "cuda:0",
+        "model.rotary_emb": "cuda:0",
     }
 
     model = transformers.AutoModelForCausalLM.from_pretrained(model_name, device_map=device_map, low_cpu_mem_usage=True, torch_dtype=torch.float16)
